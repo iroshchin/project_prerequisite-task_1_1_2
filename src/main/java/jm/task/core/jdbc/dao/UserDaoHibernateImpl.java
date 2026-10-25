@@ -94,7 +94,6 @@ public abstract class UserDaoHibernateImpl implements UserDao {
         ) {
             while (rs.next()) {
                 User user = new User(
-                        rs.getLong("id"),
                         rs.getString("name"),
                         rs.getString("lastname"),
                         rs.getByte("age")

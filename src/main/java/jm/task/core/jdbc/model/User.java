@@ -18,8 +18,6 @@ public class User {
     @Column
     private Byte age;
 
-    public User(long id, String name, String lastname, byte age) {
-    }
 
     public User(String name, String lastName, Byte age) {
         this.name = name;
