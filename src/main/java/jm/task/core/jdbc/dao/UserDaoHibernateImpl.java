@@ -2,8 +2,6 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class UserDaoHibernateImpl implements UserDao {
+public class UserDaoHibernateImpl implements UserDao {
     public UserDaoHibernateImpl() throws SQLException {
     }
 
@@ -49,7 +47,6 @@ public abstract class UserDaoHibernateImpl implements UserDao {
         }
     }
 
-
     @Override
     public void saveUser(String name, String lastName, byte age) {
         String sql = "INSERT INTO users (name, lastName, age) VALUES ( ?, ?, ?)";
@@ -61,6 +58,7 @@ public abstract class UserDaoHibernateImpl implements UserDao {
             stmt.setString(1, name);
             stmt.setString(2, lastName);
             stmt.setByte(3, age);
+            System.out.println("Пользователь с именем " + name +" " + lastName + " добавлен в базу данных");
             stmt.executeUpdate();
         } catch (SQLException e) {
             handleSQLException(e);
@@ -84,8 +82,7 @@ public abstract class UserDaoHibernateImpl implements UserDao {
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
-
-        String sql = "select id, name, lastname, age from users";
+        String sql = "select name, lastname, age from users";
 
         try (
                 Connection connection = Util.getConnection();
@@ -98,6 +95,7 @@ public abstract class UserDaoHibernateImpl implements UserDao {
                         rs.getString("lastname"),
                         rs.getByte("age")
                 );
+                System.out.println(user);
                 users.add(user);
             }
         } catch (SQLException e) {
