@@ -1,16 +1,11 @@
 package jm.task.core.jdbc;
-
 import jm.task.core.jdbc.dao.UserDao;
-import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) {
         // implement algorithm here
-        UserDao userDao = new UserDaoHibernateImpl();
+        UserDao userDao = new UserDaoJDBCImpl();
         userDao.createUsersTable();
 
         userDao.saveUser("John", "Berry", (byte) 45);
