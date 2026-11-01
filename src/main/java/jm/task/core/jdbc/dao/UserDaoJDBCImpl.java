@@ -1,5 +1,9 @@
 package jm.task.core.jdbc.dao;
 
+import jakarta.transaction.HeuristicMixedException;
+import jakarta.transaction.HeuristicRollbackException;
+import jakarta.transaction.RollbackException;
+import jakarta.transaction.SystemException;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import java.sql.Connection;
@@ -57,7 +61,6 @@ public class UserDaoJDBCImpl implements UserDao {
             stmt.setString(1, name);
             stmt.setString(2, lastName);
             stmt.setByte(3, age);
-            System.out.println("Пользователь с именем " + name +" " + lastName + " добавлен в базу данных");
             stmt.executeUpdate();
         } catch (SQLException e) {
             handleSQLException(e);
@@ -94,7 +97,6 @@ public class UserDaoJDBCImpl implements UserDao {
                         rs.getString("lastname"),
                         rs.getByte("age")
                 );
-                System.out.println(user);
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -122,6 +124,16 @@ public class UserDaoJDBCImpl implements UserDao {
         System.err.println("SQL State: " + e.getSQLState());
         System.err.println("Error Code: " + e.getErrorCode());
         System.err.println("Message: " + e.getMessage());
+    }
+
+    @Override
+    public void save(User user) {
+
+    }
+
+    @Override
+    public void updateUser(long id, User user) {
+
     }
 }
 
