@@ -9,33 +9,23 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
+
     public UserDaoHibernateImpl() {
     }
 
 
     @Override
     public void createUsersTable() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.getSessionFactory();
-
-        session.createNativeQuery("CREATE TABLE IF NOT EXISTS users ("+
-        "id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, " +
-        "name VARCHAR (100) NOT NULL, " +
-        "lastName VARCHAR (200) NOT NULL, " +
-        "age TINYINT NOT NULL)", void.class).executeUpdate();
-
-        session.getTransaction().commit();
-        session.close();
+        HibernateUtil.getSessionFactory()
+                .getSchemaManager()
+                .exportMappedObjects(true);
     }
 
     @Override
     public void dropUsersTable() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction fx= session.beginTransaction();
-        session.createNativeQuery("DROP TABLE IF EXISTS users").executeUpdate();
-        session.getTransaction().commit();
-
+        HibernateUtil.getSessionFactory()
+                .getSchemaManager()
+                .dropMappedObjects(true);
     }
 
     @Override
@@ -67,6 +57,7 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         List<User> users = session.createQuery("from User", User.class)//Select * from users
                 .getResultList();
+        users.forEach(System.out::println);
         session.close();
 
         return users;
@@ -77,7 +68,8 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction fx = session.beginTransaction();
         try {
-            session.remove("users");
+            session.createMutationQuery("DELETE FROM User")
+                    .executeUpdate();
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

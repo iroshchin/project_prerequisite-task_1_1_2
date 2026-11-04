@@ -23,10 +23,16 @@ public class Main {
 //        userDao.dropUsersTable();
 
 
-        User user = new User("BK", "Doe", (byte) 20);
+//        User user = new User("Jane", "Fawn", (byte) 99);
         UserDaoHibernateImpl daoHibernate = new UserDaoHibernateImpl();
-        daoHibernate.save(user);
-        daoHibernate.createUsersTable();
+
+//        daoHibernate.updateUser(2, user);
+//        daoHibernate.save(user);
+//        daoHibernate.saveUser("Joe", "Black", (byte)45);
+//        daoHibernate.getAllUsers();
+//        daoHibernate.cleanUsersTable();
+//        daoHibernate.removeUserById(3);
+//        daoHibernate.createUsersTable();
 //        daoHibernate.dropUsersTable();
     }
 }

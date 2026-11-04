@@ -17,7 +17,7 @@ public class HibernateUtil {
             cfg.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 
             cfg.setProperty("hibernate.show_sql", "true");
-            cfg.setProperty("hibernate.hbm2ddl.auto", "update");
+            cfg.setProperty("hibernate.hbm2ddl.auto", "none");
 
             cfg.addAnnotatedClass(User.class);
 

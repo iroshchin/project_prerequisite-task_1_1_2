@@ -13,9 +13,6 @@ public class UserServiceTest {
     private final String testLastName = "Martin";
     private final byte testAge = 15;
 
-    public UserServiceTest() {
-    }
-
 
     @Test
     public void dropUsersTable() {
